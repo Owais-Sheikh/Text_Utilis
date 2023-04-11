@@ -7,19 +7,31 @@ const inter = Inter({ subsets: ['latin'] })
 
 
 export default function Home() {
-var CoW:number = 0; 
+  // Declare useState for perform different functions
+  // It is used to store text in messagebox
 const [text, settext] = useState('')
+
+// It showes the number  of words in button
 const [showWords, setshowWords] = useState(false)
+
+// It showes the number  of alphabets in button
 const [showAlpha, setshowAlpha] = useState(false)
+
+// It counts the number of words in a string
 const [countWords, setcountWords] = useState(0)
+
+// It counts the number of alphabets in a string
 const [countAlpha, setcountAlpha] = useState(0)
 
-
+// This function is used for taking value from messagebox
 const setVal = (e:any) => {
   e.preventDefault();
   setshowWords(false)
+  setshowAlpha(false)
   settext(e.target.value);
 }
+
+// This function is used for count words in a string
 const wordCount = ()=>{
   var countW:number = 0;
   setshowWords(true);
@@ -29,6 +41,30 @@ const wordCount = ()=>{
   }
   }
   setcountWords(countW+1);
+}
+
+// This function is used for count alphabets in a string
+const AlphabetCount = ()=>{
+  var countW:number = 0;
+  setshowAlpha(true);
+  for(var i of text){
+    if(i == " "){
+    countW++;
+  }
+  }
+  setcountAlpha(text.length - countW);
+}
+
+// It converts the string into UPPERCASE
+const upperCase = () => {
+  var t:string = text.toUpperCase();
+  settext(t);
+}
+
+// It converts the string into lowercase
+const lowerCase = () => {
+  var t:string = text.toLowerCase();
+  settext(t);
 }
 
   return (
@@ -49,9 +85,9 @@ const wordCount = ()=>{
       </div>
       <div className='flex justify-around mt-10'>
         <button onClick={wordCount} className='bg-indigo-500 m-3 hover:bg-indigo-800 md:text-sm text-xs p-2 text-white rounded-lg w-32'>{showWords? countWords : "Count Words"}</button>
-        <button onClick={()=>{setcountAlpha(text.length - countWords); setshowAlpha(true)}} className='bg-indigo-500 m-3 hover:bg-indigo-800 md:text-sm text-xs p-2 text-white rounded-lg w-32'>{showAlpha? countAlpha : "Count Alphabets"}</button>
-        <button className='bg-indigo-500 m-3 hover:bg-indigo-800 md:text-sm text-xs p-2 text-white rounded-lg w-32'>Upper Case</button>
-        <button className='bg-indigo-500 m-3 hover:bg-indigo-800 md:text-sm text-xs p-2 text-white rounded-lg w-32'>Lower Case</button>
+        <button onClick={AlphabetCount} className='bg-indigo-500 m-3 hover:bg-indigo-800 md:text-sm text-xs p-2 text-white rounded-lg w-32'>{showAlpha? countAlpha : "Count Alphabets"}</button>
+        <button onClick={upperCase} className='bg-indigo-500 m-3 hover:bg-indigo-800 md:text-sm text-xs p-2 text-white rounded-lg w-32'>Upper Case</button>
+        <button onClick={lowerCase} className='bg-indigo-500 m-3 hover:bg-indigo-800 md:text-sm text-xs p-2 text-white rounded-lg w-32'>Lower Case</button>
       </div>
     </main>
   )
